@@ -1,0 +1,260 @@
+### Variables
+@baseUrl = http://localhost:8081
+@directUrl = http://localhost:8080
+
+### Health Check (through Gateway)
+GET {{baseUrl}}/health
+
+### Health Check (direct)
+GET {{directUrl}}/health
+
+### ===== REST API TESTS =====
+
+### Register a new user (REST)
+POST {{baseUrl}}/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Register another user (REST)
+POST {{baseUrl}}/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "janedoe",
+  "email": "jane@example.com",
+  "password": "password456"
+}
+
+### Login user (REST)
+POST {{baseUrl}}/api/v1/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Login with wrong password (REST)
+POST {{baseUrl}}/api/v1/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "wrongpassword"
+}
+
+### Get all users (REST)
+GET {{baseUrl}}/api/v1/users
+
+### Get user by ID (REST) - Replace with actual UUID
+GET {{baseUrl}}/api/v1/users/550e8400-e29b-41d4-a716-446655440000
+
+### Get user with invalid ID (REST)
+GET {{baseUrl}}/api/v1/users/invalid-uuid
+
+### ===== GRAPHQL API TESTS =====
+
+### GraphQL - Register user
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation RegisterUser($input: RegisterInput!) { register(input: $input) { token user { id username email } } }",
+  "variables": {
+    "input": {
+      "username": "graphqluser",
+      "email": "graphql@example.com",
+      "password": "graphqlpass"
+    }
+  }
+}
+
+### GraphQL - Login user
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation LoginUser($input: LoginInput!) { login(input: $input) { token user { id username email } } }",
+  "variables": {
+    "input": {
+      "email": "graphql@example.com",
+      "password": "graphqlpass"
+    }
+  }
+}
+
+### GraphQL - Get all users
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query GetUsers { users { id username email } }"
+}
+
+### GraphQL - Get user by ID (replace with actual ID)
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query GetUser($id: String!) { user(id: $id) { id username email } }",
+  "variables": {
+    "id": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+
+### GraphQL - Get current user (me)
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query Me { me { id username email } }"
+}
+
+### GraphQL - Login with wrong credentials
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation LoginUser($input: LoginInput!) { login(input: $input) { token user { id username email } } }",
+  "variables": {
+    "input": {
+      "email": "wrong@example.com",
+      "password": "wrongpass"
+    }
+  }
+}
+
+### ===== DIRECT API TESTS (bypassing Gateway) =====
+
+### Direct - Register user
+POST {{directUrl}}/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "directuser",
+  "email": "direct@example.com",
+  "password": "directpass"
+}
+
+### Direct - Login user
+POST {{directUrl}}/api/v1/login
+Content-Type: application/json
+
+{
+  "email": "direct@example.com",
+  "password": "directpass"
+}
+
+### Direct - Get all users
+GET {{directUrl}}/api/v1/users
+
+### Direct - GraphQL query
+POST {{directUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query GetUsers { users { id username email } }"
+}
+
+### ===== COMPLEX GRAPHQL QUERIES =====
+
+### GraphQL - Multiple operations in one request
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query GetUsersAndMe { users { id username email } me { id username email } }"
+}
+
+### GraphQL - Query with fragments
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "fragment UserFields on User { id username email } query GetUsers { users { ...UserFields } }"
+}
+
+### GraphQL - Introspection query (get schema info)
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query IntrospectionQuery { __schema { queryType { name } mutationType { name } } }"
+}
+
+### ===== ERROR TESTING =====
+
+### REST - Invalid JSON
+POST {{baseUrl}}/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "test"
+  "email": "invalid-json"
+}
+
+### REST - Missing required fields
+POST {{baseUrl}}/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "test"
+}
+
+### GraphQL - Invalid query syntax
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query { invalid syntax }"
+}
+
+### GraphQL - Missing required variables
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation RegisterUser($input: RegisterInput!) { register(input: $input) { token user { id username email } } }"
+}
+
+### ===== PAGINATION TESTING (if implemented) =====
+
+### REST - Get users with pagination
+GET {{baseUrl}}/api/v1/users?page=1&limit=10
+
+### GraphQL - Get users with pagination (if you add this)
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query GetUsers($first: Int, $after: String) { users(first: $first, after: $after) { id username email } }",
+  "variables": {
+    "first": 5,
+    "after": "cursor-value"
+  }
+}
+
+### ===== BROWSER TESTS =====
+
+### Open GraphQL Playground (paste this URL in browser)
+# http://localhost:8081/playground
+
+### Open GraphQL Playground (direct)
+# http://localhost:8080/playground
+
+### ===== CURL EQUIVALENTS =====
+
+### Register user with curl
+# curl -X POST http://localhost:8081/api/v1/register \
+#   -H "Content-Type: application/json" \
+#   -d '{"username":"curluser","email":"curl@example.com","password":"curlpass"}'
+
+### GraphQL with curl  
+# curl -X POST http://localhost:8081/graphql \
+#   -H "Content-Type: application/json" \
+#   -d '{"query":"query { users { id username email } }"}'

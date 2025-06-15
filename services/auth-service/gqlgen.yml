@@ -1,0 +1,22 @@
+# gqlgen.yml
+schema:
+  - "schema/*.graphql"
+
+exec:
+  filename: internal/graph/generated.go
+  package: graph
+
+model:
+  filename: internal/graph/model/models_gen.go
+  package: model
+
+resolver:
+  filename: internal/graph/resolver.go
+  package: graph
+  type: Resolver
+
+models:
+  User:
+    model: github.com/content-management-system/auth-service/internal/types.User
+  UUID:
+    model: github.com/google/uuid.UUID
