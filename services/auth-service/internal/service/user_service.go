@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+
 	"github.com/content-management-system/auth-service/internal/model/types"
 	"github.com/content-management-system/auth-service/pkg/db"
 	"github.com/google/uuid"

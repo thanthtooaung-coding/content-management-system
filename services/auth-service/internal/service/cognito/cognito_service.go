@@ -2,12 +2,13 @@ package cognito
 
 import (
 	"context"
+	"os"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
 	cognitoTypes "github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider/types"
 	"github.com/content-management-system/auth-service/internal/model/types"
 	"github.com/sirupsen/logrus"
-	"os"
 )
 
 type CognitoService struct {

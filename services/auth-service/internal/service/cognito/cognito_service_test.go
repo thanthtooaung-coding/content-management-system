@@ -2,12 +2,13 @@ package cognito
 
 import (
 	"context"
+	"testing"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/fx"
-	"testing"
 )
 
 func setupCognitoService(t *testing.T) *CognitoService {

@@ -3,8 +3,9 @@ package fiber_app
 import (
 	"context"
 	"fmt"
-	graph2 "github.com/content-management-system/auth-service/internal/handler/graph"
 	"os"
+
+	graph2 "github.com/content-management-system/auth-service/internal/handler/graph"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"

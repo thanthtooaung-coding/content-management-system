@@ -2,10 +2,11 @@ package logger
 
 import (
 	"context"
+	"log"
+
 	"github.com/sirupsen/logrus"
 	"go.uber.org/fx"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"log"
 )
 
 type Params struct {
