@@ -2,17 +2,18 @@ name: workflow.yml
 on:
   push:
     branches: [main]
+    paths:
+      - 'services/auth-services/**'
   pull_request:
     branches: [main]
+    paths:
+      - 'services/auth-services/**'
   workflow_dispatch:
 
 jobs:
   flow:
     name: 'Running the unit test and work flow'
     runs-on: ubuntu-latest
-
-    defualt:
-      runs-on: services/auth-services
 
     steps:
     - name: 📥 Checkout code
