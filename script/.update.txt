@@ -1,0 +1,1072 @@
+UPDATE-USER-POOL()                                          UPDATE-USER-POOL()
+
+NNAAMMEE
+       update-user-pool -
+
+DDEESSCCRRIIPPTTIIOONN
+       Updates the configuration of a user pool. To avoid setting parameters
+       to Amazon Cognito defaults, construct this API request to pass the
+       existing configuration of your user pool, modified to include the
+       changes that you want to make.
+
+       WWAARRNNIINNGG::
+          If you don't provide a value for an attribute, Amazon Cognito sets
+          it to its default value.
+
+       NNOOTTEE::
+          This action might generate an SMS text message. Starting June 1,
+          2021, US telecom carriers require you to register an origination
+          phone number before you can send SMS messages to US phone numbers.
+          If you use SMS text messages in Amazon Cognito, you must register a
+          phone number with _A_m_a_z_o_n _P_i_n_p_o_i_n_t . Amazon Cognito uses the
+          registered number automatically. Otherwise, Amazon Cognito users who
+          must receive SMS messages might not be able to sign up, activate
+          their accounts, or sign in.
+
+          If you have never used SMS text messages with Amazon Cognito or any
+          other Amazon Web Services service, Amazon Simple Notification
+          Service might place your account in the SMS sandbox. In * _s_a_n_d_b_o_x
+          _m_o_d_e * , you can send messages only to verified phone numbers. After
+          you test your app while in the sandbox environment, you can move out
+          of the sandbox and into production. For more information, see _S_M_S
+          _m_e_s_s_a_g_e _s_e_t_t_i_n_g_s _f_o_r _A_m_a_z_o_n _C_o_g_n_i_t_o _u_s_e_r _p_o_o_l_s in the _A_m_a_z_o_n _C_o_g_n_i_t_o
+          _D_e_v_e_l_o_p_e_r _G_u_i_d_e .
+
+       NNOOTTEE::
+          Amazon Cognito evaluates Identity and Access Management (IAM)
+          policies in requests for this API operation. For this operation, you
+          must use IAM credentials to authorize requests, and you must grant
+          yourself the corresponding IAM permission in a policy.
+             LLeeaarrnn mmoorree
+
+          +o _S_i_g_n_i_n_g _A_m_a_z_o_n _W_e_b _S_e_r_v_i_c_e_s _A_P_I _R_e_q_u_e_s_t_s
+
+          +o _U_s_i_n_g _t_h_e _A_m_a_z_o_n _C_o_g_n_i_t_o _u_s_e_r _p_o_o_l_s _A_P_I _a_n_d _u_s_e_r _p_o_o_l _e_n_d_p_o_i_n_t_s
+
+       See also: AWS API Documentation
+
+SSYYNNOOPPSSIISS
+
+            update-user-pool
+          --user-pool-id <value>
+          [--policies <value>]
+          [--deletion-protection <value>]
+          [--lambda-config <value>]
+          [--auto-verified-attributes <value>]
+          [--sms-verification-message <value>]
+          [--email-verification-message <value>]
+          [--email-verification-subject <value>]
+          [--verification-message-template <value>]
+          [--sms-authentication-message <value>]
+          [--user-attribute-update-settings <value>]
+          [--mfa-configuration <value>]
+          [--device-configuration <value>]
+          [--email-configuration <value>]
+          [--sms-configuration <value>]
+          [--user-pool-tags <value>]
+          [--admin-create-user-config <value>]
+          [--user-pool-add-ons <value>]
+          [--account-recovery-setting <value>]
+          [--pool-name <value>]
+          [--user-pool-tier <value>]
+          [--cli-input-json | --cli-input-yaml]
+          [--generate-cli-skeleton <value>]
+          [--debug]
+          [--endpoint-url <value>]
+          [--no-verify-ssl]
+          [--no-paginate]
+          [--output <value>]
+          [--query <value>]
+          [--profile <value>]
+          [--region <value>]
+          [--version <value>]
+          [--color <value>]
+          [--no-sign-request]
+          [--ca-bundle <value>]
+          [--cli-read-timeout <value>]
+          [--cli-connect-timeout <value>]
+          [--cli-binary-format <value>]
+          [--no-cli-pager]
+          [--cli-auto-prompt]
+          [--no-cli-auto-prompt]
+
+OOPPTTIIOONNSS
+       ----uusseerr--ppooooll--iidd (string)
+          The ID of the user pool you want to update.
+
+       ----ppoolliicciieess (structure)
+          The password policy and sign-in policy in the user pool. The
+          password policy sets options like password complexity requirements
+          and password history. The sign-in policy sets the options available
+          to applications in _c_h_o_i_c_e_-_b_a_s_e_d _a_u_t_h_e_n_t_i_c_a_t_i_o_n .
+
+          PasswordPolicy -> (structure)
+             The password policy settings for a user pool, including
+             complexity, history, and length requirements.
+
+             MinimumLength -> (integer)
+                The minimum length of the password in the policy that you have
+                set. This value can't be less than 6.
+
+              RequireUppercase -> (boolean)
+                The requirement in a password policy that users must include
+                at least one uppercase letter in their password.
+
+              RequireLowercase -> (boolean)
+                The requirement in a password policy that users must include
+                at least one lowercase letter in their password.
+
+              RequireNumbers -> (boolean)
+                The requirement in a password policy that users must include
+                at least one number in their password.
+
+              RequireSymbols -> (boolean)
+                The requirement in a password policy that users must include
+                at least one symbol in their password.
+
+              PasswordHistorySize -> (integer)
+                The number of previous passwords that you want Amazon Cognito
+                to restrict each user from reusing. Users can't set a password
+                that matches any of nn previous passwords, where nn is the value
+                of PPaasssswwoorrddHHiissttoorryySSiizzee .
+
+              TemporaryPasswordValidityDays -> (integer)
+                The number of days a temporary password is valid in the
+                password policy. If the user doesn't sign in during this time,
+                an administrator must reset their password. Defaults to 77 . If
+                you submit a value of 00 , Amazon Cognito treats it as a null
+                value and sets TTeemmppoorraarryyPPaasssswwoorrddVVaalliiddiittyyDDaayyss to its default
+                value.
+
+                NNOOTTEE::
+                   When you set TTeemmppoorraarryyPPaasssswwoorrddVVaalliiddiittyyDDaayyss for a user pool,
+                   you can no longer set a value for the legacy
+                   UUnnuusseeddAAccccoouunnttVVaalliiddiittyyDDaayyss parameter in that user pool.
+
+          SignInPolicy -> (structure)
+             The policy for allowed types of authentication in a user pool.
+
+             AllowedFirstAuthFactors -> (list)
+                The sign-in methods that a user pool supports as the first
+                factor. You can permit users to start authentication with a
+                standard username and password, or with other one-time
+                password and hardware factors.
+
+                (string)
+
+       Shorthand Syntax:
+
+          PasswordPolicy={MinimumLength=integer,RequireUppercase=boolean,RequireLowercase=boolean,RequireNumbers=boolean,RequireSymbols=boolean,PasswordHistorySize=integer,TemporaryPasswordValidityDays=integer},SignInPolicy={AllowedFirstAuthFactors=[string,string]}
+
+       JSON Syntax:
+
+          {
+            "PasswordPolicy": {
+              "MinimumLength": integer,
+              "RequireUppercase": true|false,
+              "RequireLowercase": true|false,
+              "RequireNumbers": true|false,
+              "RequireSymbols": true|false,
+              "PasswordHistorySize": integer,
+              "TemporaryPasswordValidityDays": integer
+            },
+            "SignInPolicy": {
+              "AllowedFirstAuthFactors": ["PASSWORD"|"EMAIL_OTP"|"SMS_OTP"|"WEB_AUTHN", ...]
+            }
+          }
+
+       ----ddeelleettiioonn--pprrootteeccttiioonn (string)
+          When active, DDeelleettiioonnPPrrootteeccttiioonn prevents accidental deletion of your
+          user pool. Before you can delete a user pool that you have protected
+          against deletion, you must deactivate this feature.
+
+          When you try to delete a protected user pool in a DDeelleetteeUUsseerrPPooooll API
+          request, Amazon Cognito returns an IInnvvaalliiddPPaarraammeetteerrEExxcceeppttiioonn error.
+          To delete a protected user pool, send a new DDeelleetteeUUsseerrPPooooll request
+          after you deactivate deletion protection in an UUppddaatteeUUsseerrPPooooll API
+          request.
+
+          Possible values:
+
+          +o AACCTTIIVVEE
+
+          +o IINNAACCTTIIVVEE
+
+       ----llaammbbddaa--ccoonnffiigg (structure)
+          A collection of user pool Lambda triggers. Amazon Cognito invokes
+          triggers at several possible stages of authentication operations.
+          Triggers can modify the outcome of the operations that invoked them.
+
+          PreSignUp -> (string)
+             The configuration of a _p_r_e _s_i_g_n_-_u_p _L_a_m_b_d_a _t_r_i_g_g_e_r in a user pool.
+             This trigger evaluates new users and can bypass confirmation,
+             _l_i_n_k _a _f_e_d_e_r_a_t_e_d _u_s_e_r _p_r_o_f_i_l_e , or block sign-up requests.
+
+          CustomMessage -> (string)
+             A custom message Lambda trigger. This trigger is an opportunity
+             to customize all SMS and email messages from your user pool. When
+             a custom message trigger is active, your user pool routes all
+             messages to a Lambda function that returns a runtime-customized
+             message subject and body for your user pool to deliver to a user.
+
+          PostConfirmation -> (string)
+             The configuration of a _p_o_s_t _c_o_n_f_i_r_m_a_t_i_o_n _L_a_m_b_d_a _t_r_i_g_g_e_r in a user
+             pool. This trigger can take custom actions after a user confirms
+             their user account and their email address or phone number.
+
+          PreAuthentication -> (string)
+             The configuration of a _p_r_e _a_u_t_h_e_n_t_i_c_a_t_i_o_n _t_r_i_g_g_e_r in a user pool.
+             This trigger can evaluate and modify user sign-in events.
+
+          PostAuthentication -> (string)
+             The configuration of a _p_o_s_t _a_u_t_h_e_n_t_i_c_a_t_i_o_n _L_a_m_b_d_a _t_r_i_g_g_e_r in a
+             user pool. This trigger can take custom actions after a user
+             signs in.
+
+          DefineAuthChallenge -> (string)
+             The configuration of a define auth challenge Lambda trigger, one
+             of three triggers in the sequence of the _c_u_s_t_o_m _a_u_t_h_e_n_t_i_c_a_t_i_o_n
+             _c_h_a_l_l_e_n_g_e _t_r_i_g_g_e_r_s .
+
+          CreateAuthChallenge -> (string)
+             The configuration of a create auth challenge Lambda trigger, one
+             of three triggers in the sequence of the _c_u_s_t_o_m _a_u_t_h_e_n_t_i_c_a_t_i_o_n
+             _c_h_a_l_l_e_n_g_e _t_r_i_g_g_e_r_s .
+
+          VerifyAuthChallengeResponse -> (string)
+             The configuration of a verify auth challenge Lambda trigger, one
+             of three triggers in the sequence of the _c_u_s_t_o_m _a_u_t_h_e_n_t_i_c_a_t_i_o_n
+             _c_h_a_l_l_e_n_g_e _t_r_i_g_g_e_r_s .
+
+          PreTokenGeneration -> (string)
+             The legacy configuration of a _p_r_e _t_o_k_e_n _g_e_n_e_r_a_t_i_o_n _L_a_m_b_d_a _t_r_i_g_g_e_r
+             in a user pool.
+
+             Set this parameter for legacy purposes. If you also set an ARN in
+             PPrreeTTookkeennGGeenneerraattiioonnCCoonnffiigg , its value must be identical to
+             PPrreeTTookkeennGGeenneerraattiioonn . For new instances of pre token generation
+             triggers, set the LLaammbbddaaAArrnn of PPrreeTTookkeennGGeenneerraattiioonnCCoonnffiigg .
+
+          UserMigration -> (string)
+             The configuration of a _m_i_g_r_a_t_e _u_s_e_r _L_a_m_b_d_a _t_r_i_g_g_e_r in a user
+             pool. This trigger can create user profiles when users sign in or
+             attempt to reset their password with credentials that don't exist
+             yet.
+
+          PreTokenGenerationConfig -> (structure)
+             The detailed configuration of a _p_r_e _t_o_k_e_n _g_e_n_e_r_a_t_i_o_n _L_a_m_b_d_a
+             _t_r_i_g_g_e_r in a user pool. If you also set an ARN in
+             PPrreeTTookkeennGGeenneerraattiioonn , its value must be identical to
+             PPrreeTTookkeennGGeenneerraattiioonnCCoonnffiigg .
+
+             LambdaVersion -> (string)
+                The user pool trigger version of the request that Amazon
+                Cognito sends to your Lambda function. Higher-numbered
+                versions add fields that support new features.
+
+              LambdaArn -> (string)
+                The Amazon Resource Name (ARN) of the function that you want
+                to assign to your Lambda trigger.
+
+                This parameter and the PPrreeTTookkeennGGeenneerraattiioonn property of
+                LLaammbbddaaCCoonnffiigg have the same value. For new instances of pre
+                token generation triggers, set LLaammbbddaaAArrnn .
+
+          CustomSMSSender -> (structure)
+             The configuration of a custom SMS sender Lambda trigger. This
+             trigger routes all SMS notifications from a user pool to a Lambda
+             function that delivers the message using custom logic.
+
+             LambdaVersion -> (string)
+                The user pool trigger version of the request that Amazon
+                Cognito sends to your Lambda function. Higher-numbered
+                versions add fields that support new features.
+
+                You must use a LLaammbbddaaVVeerrssiioonn of VV11__00 with a custom sender
+                function.
+
+              LambdaArn -> (string)
+                The Amazon Resource Name (ARN) of the function that you want
+                to assign to your Lambda trigger.
+
+          CustomEmailSender -> (structure)
+             The configuration of a custom email sender Lambda trigger. This
+             trigger routes all email notifications from a user pool to a
+             Lambda function that delivers the message using custom logic.
+
+             LambdaVersion -> (string)
+                The user pool trigger version of the request that Amazon
+                Cognito sends to your Lambda function. Higher-numbered
+                versions add fields that support new features.
+
+                You must use a LLaammbbddaaVVeerrssiioonn of VV11__00 with a custom sender
+                function.
+
+              LambdaArn -> (string)
+                The Amazon Resource Name (ARN) of the function that you want
+                to assign to your Lambda trigger.
+
+          KMSKeyID -> (string)
+             The ARN of an _K_M_S _k_e_y . Amazon Cognito uses the key to encrypt
+             codes and temporary passwords sent to custom sender Lambda
+             triggers.
+
+       Shorthand Syntax:
+
+          PreSignUp=string,CustomMessage=string,PostConfirmation=string,PreAuthentication=string,PostAuthentication=string,DefineAuthChallenge=string,CreateAuthChallenge=string,VerifyAuthChallengeResponse=string,PreTokenGeneration=string,UserMigration=string,PreTokenGenerationConfig={LambdaVersion=string,LambdaArn=string},CustomSMSSender={LambdaVersion=string,LambdaArn=string},CustomEmailSender={LambdaVersion=string,LambdaArn=string},KMSKeyID=string
+
+       JSON Syntax:
+
+          {
+            "PreSignUp": "string",
+            "CustomMessage": "string",
+            "PostConfirmation": "string",
+            "PreAuthentication": "string",
+            "PostAuthentication": "string",
+            "DefineAuthChallenge": "string",
+            "CreateAuthChallenge": "string",
+            "VerifyAuthChallengeResponse": "string",
+            "PreTokenGeneration": "string",
+            "UserMigration": "string",
+            "PreTokenGenerationConfig": {
+              "LambdaVersion": "V1_0"|"V2_0"|"V3_0",
+              "LambdaArn": "string"
+            },
+            "CustomSMSSender": {
+              "LambdaVersion": "V1_0",
+              "LambdaArn": "string"
+            },
+            "CustomEmailSender": {
+              "LambdaVersion": "V1_0",
+              "LambdaArn": "string"
+            },
+            "KMSKeyID": "string"
+          }
+
+       ----aauuttoo--vveerriiffiieedd--aattttrriibbuutteess (list)
+          The attributes that you want your user pool to automatically verify.
+          Possible values: eemmaaiill , pphhoonnee__nnuummbbeerr . For more information see
+          _V_e_r_i_f_y_i_n_g _c_o_n_t_a_c_t _i_n_f_o_r_m_a_t_i_o_n _a_t _s_i_g_n_-_u_p .
+
+          (string)
+
+       Syntax:
+
+          "string" "string" ...
+
+          Where valid values are:
+            phone_number
+            email
+
+       ----ssmmss--vveerriiffiiccaattiioonn--mmeessssaaggee (string)
+          This parameter is no longer used.
+
+       ----eemmaaiill--vveerriiffiiccaattiioonn--mmeessssaaggee (string)
+          This parameter is no longer used.
+
+       ----eemmaaiill--vveerriiffiiccaattiioonn--ssuubbjjeecctt (string)
+          This parameter is no longer used.
+
+       ----vveerriiffiiccaattiioonn--mmeessssaaggee--tteemmppllaattee (structure)
+          The template for the verification message that your user pool
+          delivers to users who set an email address or phone number
+          attribute.
+
+          Set the email message type that corresponds to your
+          DDeeffaauullttEEmmaaiillOOppttiioonn selection. For CCOONNFFIIRRMM__WWIITTHH__LLIINNKK , specify an
+          EEmmaaiillMMeessssaaggeeBByyLLiinnkk and leave EEmmaaiillMMeessssaaggee blank. For
+          CCOONNFFIIRRMM__WWIITTHH__CCOODDEE , specify an EEmmaaiillMMeessssaaggee and leave
+          EEmmaaiillMMeessssaaggeeBByyLLiinnkk blank. When you supply both parameters with
+          either choice, Amazon Cognito returns an error.
+
+          SmsMessage -> (string)
+             The template for SMS messages that Amazon Cognito sends to your
+             users.
+
+          EmailMessage -> (string)
+             The template for email messages that Amazon Cognito sends to your
+             users. You can set an EEmmaaiillMMeessssaaggee template only if the value of
+             _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DDEEVVEELLOOPPEERR . When your _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t
+             is DDEEVVEELLOOPPEERR , your user pool sends email messages with your own
+             Amazon SES configuration.
+
+          EmailSubject -> (string)
+             The subject line for the email message template. You can set an
+             EEmmaaiillSSuubbjjeecctt template only if the value of _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is
+             DDEEVVEELLOOPPEERR . When your _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DDEEVVEELLOOPPEERR , your
+             user pool sends email messages with your own Amazon SES
+             configuration.
+
+          EmailMessageByLink -> (string)
+             The email message template for sending a confirmation link to the
+             user. You can set an EEmmaaiillMMeessssaaggeeBByyLLiinnkk template only if the
+             value of _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DDEEVVEELLOOPPEERR . When your
+             _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DDEEVVEELLOOPPEERR , your user pool sends email
+             messages with your own Amazon SES configuration.
+
+          EmailSubjectByLink -> (string)
+             The subject line for the email message template for sending a
+             confirmation link to the user. You can set an EEmmaaiillSSuubbjjeeccttBByyLLiinnkk
+             template only if the value of _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DDEEVVEELLOOPPEERR .
+             When your _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DDEEVVEELLOOPPEERR , your user pool sends
+             email messages with your own Amazon SES configuration.
+
+          DefaultEmailOption -> (string)
+             The configuration of verification emails to contain a clickable
+             link or a verification code.
+
+             For link, your template body must contain link text in the format
+             {{####CClliicckk hheerree####}} . "Click here" in the example is a customizable
+             string. For code, your template body must contain a code
+             placeholder in the format {{########}} .
+
+       Shorthand Syntax:
+
+          SmsMessage=string,EmailMessage=string,EmailSubject=string,EmailMessageByLink=string,EmailSubjectByLink=string,DefaultEmailOption=string
+
+       JSON Syntax:
+
+          {
+            "SmsMessage": "string",
+            "EmailMessage": "string",
+            "EmailSubject": "string",
+            "EmailMessageByLink": "string",
+            "EmailSubjectByLink": "string",
+            "DefaultEmailOption": "CONFIRM_WITH_LINK"|"CONFIRM_WITH_CODE"
+          }
+
+       ----ssmmss--aauutthheennttiiccaattiioonn--mmeessssaaggee (string)
+          The contents of the SMS message that your user pool sends to users
+          in SMS authentication.
+
+       ----uusseerr--aattttrriibbuuttee--uuppddaattee--sseettttiinnggss (structure)
+          The settings for updates to user attributes. These settings include
+          the property AAttttrriibbuutteessRReeqquuiirreeVVeerriiffiiccaattiioonnBBeeffoorreeUUppddaattee , a user-pool
+          setting that tells Amazon Cognito how to handle changes to the value
+          of your users' email address and phone number attributes. For more
+          information, see _V_e_r_i_f_y_i_n_g _u_p_d_a_t_e_s _t_o _e_m_a_i_l _a_d_d_r_e_s_s_e_s _a_n_d _p_h_o_n_e
+          _n_u_m_b_e_r_s .
+
+          AttributesRequireVerificationBeforeUpdate -> (list)
+             Requires that your user verifies their email address, phone
+             number, or both before Amazon Cognito updates the value of that
+             attribute. When you update a user attribute that has this option
+             activated, Amazon Cognito sends a verification message to the new
+             phone number or email address. Amazon Cognito doesn't change the
+             value of the attribute until your user responds to the
+             verification message and confirms the new value.
+
+             When AAttttrriibbuutteessRReeqquuiirreeVVeerriiffiiccaattiioonnBBeeffoorreeUUppddaattee is false, your
+             user pool doesn't require that your users verify attribute
+             changes before Amazon Cognito updates them. In a user pool where
+             AAttttrriibbuutteessRReeqquuiirreeVVeerriiffiiccaattiioonnBBeeffoorreeUUppddaattee is false, API
+             operations that change attribute values can immediately update a
+             user's eemmaaiill or pphhoonnee__nnuummbbeerr attribute.
+
+             (string)
+
+       Shorthand Syntax:
+
+          AttributesRequireVerificationBeforeUpdate=string,string
+
+       JSON Syntax:
+
+          {
+            "AttributesRequireVerificationBeforeUpdate": ["phone_number"|"email", ...]
+          }
+
+       ----mmffaa--ccoonnffiigguurraattiioonn (string)
+          Sets multi-factor authentication (MFA) to be on, off, or optional.
+          When OONN , all users must set up MFA before they can sign in. When
+          OOPPTTIIOONNAALL , your application must make a client-side determination of
+          whether a user wants to register an MFA device. For user pools with
+          adaptive authentication with threat protection, choose OOPPTTIIOONNAALL .
+
+          When MMffaaCCoonnffiigguurraattiioonn is OOPPTTIIOONNAALL , managed login doesn't
+          automatically prompt users to set up MFA. Amazon Cognito generates
+          MFA prompts in API responses and in managed login for users who have
+          chosen and configured a preferred MFA factor.
+
+          Possible values:
+
+          +o OOFFFF
+
+          +o OONN
+
+          +o OOPPTTIIOONNAALL
+
+       ----ddeevviiccee--ccoonnffiigguurraattiioonn (structure)
+          The device-remembering configuration for a user pool. Device
+          remembering or device tracking is a "Remember me on this device"
+          option for user pools that perform authentication with the device
+          key of a trusted device in the back end, instead of a user-provided
+          MFA code. For more information about device authentication, see
+          _W_o_r_k_i_n_g _w_i_t_h _u_s_e_r _d_e_v_i_c_e_s _i_n _y_o_u_r _u_s_e_r _p_o_o_l . A null value indicates
+          that you have deactivated device remembering in your user pool.
+
+          NNOOTTEE::
+             When you provide a value for any DDeevviicceeCCoonnffiigguurraattiioonn field, you
+             activate the Amazon Cognito device-remembering feature. For more
+             information, see _W_o_r_k_i_n_g _w_i_t_h _d_e_v_i_c_e_s .
+
+          ChallengeRequiredOnNewDevice -> (boolean)
+             When true, a remembered device can sign in with device
+             authentication instead of SMS and time-based one-time password
+             (TOTP) factors for multi-factor authentication (MFA).
+
+             NNOOTTEE::
+                Whether or not CChhaalllleennggeeRReeqquuiirreeddOOnnNNeewwDDeevviiccee is true, users who
+                sign in with devices that have not been confirmed or
+                remembered must still provide a second factor in a user pool
+                that requires MFA.
+
+          DeviceOnlyRememberedOnUserPrompt -> (boolean)
+             When true, Amazon Cognito doesn't automatically remember a user's
+             device when your app sends a CCoonnffiirrmmDDeevviiccee API request. In your
+             app, create a prompt for your user to choose whether they want to
+             remember their device. Return the user's choice in an
+             UUppddaatteeDDeevviicceeSSttaattuuss API request.
+
+             When DDeevviicceeOOnnllyyRReemmeemmbbeerreeddOOnnUUsseerrPPrroommpptt is ffaallssee , Amazon Cognito
+             immediately remembers devices that you register in a
+             CCoonnffiirrmmDDeevviiccee API request.
+
+       Shorthand Syntax:
+
+          ChallengeRequiredOnNewDevice=boolean,DeviceOnlyRememberedOnUserPrompt=boolean
+
+       JSON Syntax:
+
+          {
+            "ChallengeRequiredOnNewDevice": true|false,
+            "DeviceOnlyRememberedOnUserPrompt": true|false
+          }
+
+       ----eemmaaiill--ccoonnffiigguurraattiioonn (structure)
+          The email configuration of your user pool. The email configuration
+          type sets your preferred sending method, Amazon Web Services Region,
+          and sender for email invitation and verification messages from your
+          user pool.
+
+          SourceArn -> (string)
+             The ARN of a verified email address or an address from a verified
+             domain in Amazon SES. You can set a SSoouurrcceeAArrnn email from a
+             verified domain only with an API request. You can set a verified
+             email address, but not an address in a verified domain, in the
+             Amazon Cognito console. Amazon Cognito uses the email address
+             that you provide in one of the following ways, depending on the
+             value that you specify for the EEmmaaiillSSeennddiinnggAAccccoouunntt parameter:
+
+             +o If you specify CCOOGGNNIITTOO__DDEEFFAAUULLTT , Amazon Cognito uses this
+               address as the custom FROM address when it emails your users
+               using its built-in email account.
+
+             +o If you specify DDEEVVEELLOOPPEERR , Amazon Cognito emails your users
+               with this address by calling Amazon SES on your behalf.
+
+              The Region value of the SSoouurrcceeAArrnn parameter must indicate a
+              supported Amazon Web Services Region of your user pool.
+              Typically, the Region in the SSoouurrcceeAArrnn and the user pool Region
+              are the same. For more information, see _A_m_a_z_o_n _S_E_S _e_m_a_i_l
+              _c_o_n_f_i_g_u_r_a_t_i_o_n _r_e_g_i_o_n_s in the _A_m_a_z_o_n _C_o_g_n_i_t_o _D_e_v_e_l_o_p_e_r _G_u_i_d_e .
+
+          ReplyToEmailAddress -> (string)
+             The destination to which the receiver of the email should reply.
+
+          EmailSendingAccount -> (string)
+             Specifies whether Amazon Cognito uses its built-in functionality
+             to send your users email messages, or uses your Amazon Simple
+             Email Service email configuration. Specify one of the following
+             values:
+                COGNITO_DEFAULT
+
+              When Amazon Cognito emails your users, it uses its built-in
+              email functionality. When you use the default option, Amazon
+              Cognito allows only a limited number of emails each day for your
+              user pool. For typical production environments, the default
+              email limit is less than the required delivery volume. To
+              achieve a higher delivery volume, specify DEVELOPER to use your
+              Amazon SES email configuration.
+
+              To look up the email delivery limit for the default option, see
+              _L_i_m_i_t_s in the _A_m_a_z_o_n _C_o_g_n_i_t_o _D_e_v_e_l_o_p_e_r _G_u_i_d_e .
+
+              The default FROM address is nnoo--rreeppllyy@@vveerriiffiiccaattiioonneemmaaiill..ccoomm . To
+              customize the FROM address, provide the Amazon Resource Name
+              (ARN) of an Amazon SES verified email address for the SSoouurrcceeAArrnn
+              parameter.
+                DEVELOPER
+
+              When Amazon Cognito emails your users, it uses your Amazon SES
+              configuration. Amazon Cognito calls Amazon SES on your behalf to
+              send email from your verified email address. When you use this
+              option, the email delivery limits are the same limits that apply
+              to your Amazon SES verified email address in your Amazon Web
+              Services account.
+
+              If you use this option, provide the ARN of an Amazon SES
+              verified email address for the SSoouurrcceeAArrnn parameter.
+
+              Before Amazon Cognito can email your users, it requires
+              additional permissions to call Amazon SES on your behalf. When
+              you update your user pool with this option, Amazon Cognito
+              creates a _s_e_r_v_i_c_e_-_l_i_n_k_e_d _r_o_l_e , which is a type of role in your
+              Amazon Web Services account. This role contains the permissions
+              that allow you to access Amazon SES and send email messages from
+              your email address. For more information about the
+              service-linked role that Amazon Cognito creates, see _U_s_i_n_g
+              _S_e_r_v_i_c_e_-_L_i_n_k_e_d _R_o_l_e_s _f_o_r _A_m_a_z_o_n _C_o_g_n_i_t_o in the _A_m_a_z_o_n _C_o_g_n_i_t_o
+              _D_e_v_e_l_o_p_e_r _G_u_i_d_e .
+
+          From -> (string)
+             Either the sender's email address or the sender's name with their
+             email address. For example, tteessttuusseerr@@eexxaammppllee..ccoomm or TTeesstt UUsseerr
+             <<tteessttuusseerr@@eexxaammppllee..ccoomm>> . This address appears before the body of
+             the email.
+
+          ConfigurationSet -> (string)
+             The set of configuration rules that can be applied to emails sent
+             using Amazon Simple Email Service. A configuration set is applied
+             to an email by including a reference to the configuration set in
+             the headers of the email. Once applied, all of the rules in that
+             configuration set are applied to the email. Configuration sets
+             can be used to apply the following types of rules to emails:
+                Event publishing
+
+              Amazon Simple Email Service can track the number of send,
+              delivery, open, click, bounce, and complaint events for each
+              email sent. Use event publishing to send information about these
+              events to other Amazon Web Services services such as and Amazon
+              CloudWatch
+                IP pool management
+
+              When leasing dedicated IP addresses with Amazon Simple Email
+              Service, you can create groups of IP addresses, called dedicated
+              IP pools. You can then associate the dedicated IP pools with
+              configuration sets.
+
+       Shorthand Syntax:
+
+          SourceArn=string,ReplyToEmailAddress=string,EmailSendingAccount=string,From=string,ConfigurationSet=string
+
+       JSON Syntax:
+
+          {
+            "SourceArn": "string",
+            "ReplyToEmailAddress": "string",
+            "EmailSendingAccount": "COGNITO_DEFAULT"|"DEVELOPER",
+            "From": "string",
+            "ConfigurationSet": "string"
+          }
+
+       ----ssmmss--ccoonnffiigguurraattiioonn (structure)
+          The SMS configuration with the settings for your Amazon Cognito user
+          pool to send SMS message with Amazon Simple Notification Service. To
+          send SMS messages with Amazon SNS in the Amazon Web Services Region
+          that you want, the Amazon Cognito user pool uses an Identity and
+          Access Management (IAM) role in your Amazon Web Services account.
+          For more information see _S_M_S _m_e_s_s_a_g_e _s_e_t_t_i_n_g_s .
+
+          SnsCallerArn -> (string)
+             The Amazon Resource Name (ARN) of the Amazon SNS caller. This is
+             the ARN of the IAM role in your Amazon Web Services account that
+             Amazon Cognito will use to send SMS messages. SMS messages are
+             subject to a _s_p_e_n_d_i_n_g _l_i_m_i_t .
+
+          ExternalId -> (string)
+             The external ID provides additional security for your IAM role.
+             You can use an EExxtteerrnnaallIIdd with the IAM role that you use with
+             Amazon SNS to send SMS messages for your user pool. If you
+             provide an EExxtteerrnnaallIIdd , your Amazon Cognito user pool includes it
+             in the request to assume your IAM role. You can configure the
+             role trust policy to require that Amazon Cognito, and any
+             principal, provide the EExxtteerrnnaallIIDD . If you use the Amazon Cognito
+             Management Console to create a role for SMS multi-factor
+             authentication (MFA), Amazon Cognito creates a role with the
+             required permissions and a trust policy that demonstrates use of
+             the EExxtteerrnnaallIIdd .
+
+             For more information about the EExxtteerrnnaallIIdd of a role, see _H_o_w _t_o
+             _u_s_e _a_n _e_x_t_e_r_n_a_l _I_D _w_h_e_n _g_r_a_n_t_i_n_g _a_c_c_e_s_s _t_o _y_o_u_r _A_m_a_z_o_n _W_e_b
+             _S_e_r_v_i_c_e_s _r_e_s_o_u_r_c_e_s _t_o _a _t_h_i_r_d _p_a_r_t_y .
+
+          SnsRegion -> (string)
+             The Amazon Web Services Region to use with Amazon SNS
+             integration. You can choose the same Region as your user pool, or
+             a supported LLeeggaaccyy AAmmaazzoonn SSNNSS aalltteerrnnaattee RReeggiioonn .
+
+             Amazon Cognito resources in the Asia Pacific (Seoul) Amazon Web
+             Services Region must use your Amazon SNS configuration in the
+             Asia Pacific (Tokyo) Region. For more information, see _S_M_S
+             _m_e_s_s_a_g_e _s_e_t_t_i_n_g_s _f_o_r _A_m_a_z_o_n _C_o_g_n_i_t_o _u_s_e_r _p_o_o_l_s .
+
+       Shorthand Syntax:
+
+          SnsCallerArn=string,ExternalId=string,SnsRegion=string
+
+       JSON Syntax:
+
+          {
+            "SnsCallerArn": "string",
+            "ExternalId": "string",
+            "SnsRegion": "string"
+          }
+
+       ----uusseerr--ppooooll--ttaaggss (map)
+          The tag keys and values to assign to the user pool. A tag is a label
+          that you can use to categorize and manage user pools in different
+          ways, such as by purpose, owner, environment, or other criteria.
+
+          key -> (string)
+
+          value -> (string)
+
+       Shorthand Syntax:
+
+          KeyName1=string,KeyName2=string
+
+       JSON Syntax:
+
+          {"string": "string"
+            ...}
+
+       ----aaddmmiinn--ccrreeaattee--uusseerr--ccoonnffiigg (structure)
+          The configuration for administrative creation of users. Includes the
+          template for the invitation message for new users, the duration of
+          temporary passwords, and permitting self-service sign-up.
+
+          AllowAdminCreateUserOnly -> (boolean)
+             The setting for allowing self-service sign-up. When ttrruuee , only
+             administrators can create new user profiles. When ffaallssee , users
+             can register themselves and create a new user profile with the
+             SSiiggnnUUpp operation.
+
+          UnusedAccountValidityDays -> (integer)
+             This parameter is no longer in use.
+
+             The password expiration limit in days for administrator-created
+             users. When this time expires, the user can't sign in with their
+             temporary password. To reset the account after that time limit,
+             you must call AAddmmiinnCCrreeaatteeUUsseerr again, specifying RREESSEENNDD for the
+             MMeessssaaggeeAAccttiioonn parameter.
+
+             The default value for this parameter is 7.
+
+          InviteMessageTemplate -> (structure)
+             The template for the welcome message to new users. This template
+             must include the {{########}} temporary password placeholder if you are
+             creating users with passwords. If your users don't have
+             passwords, you can omit the placeholder.
+
+             See also _C_u_s_t_o_m_i_z_i_n_g _U_s_e_r _I_n_v_i_t_a_t_i_o_n _M_e_s_s_a_g_e_s .
+
+             SMSMessage -> (string)
+                The message template for SMS messages.
+
+              EmailMessage -> (string)
+                The message template for email messages. EmailMessage is
+                allowed only if _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DEVELOPER.
+
+              EmailSubject -> (string)
+                The subject line for email messages. EmailSubject is allowed
+                only if _E_m_a_i_l_S_e_n_d_i_n_g_A_c_c_o_u_n_t is DEVELOPER.
+
+       Shorthand Syntax:
+
+          AllowAdminCreateUserOnly=boolean,UnusedAccountValidityDays=integer,InviteMessageTemplate={SMSMessage=string,EmailMessage=string,EmailSubject=string}
+
+       JSON Syntax:
+
+          {
+            "AllowAdminCreateUserOnly": true|false,
+            "UnusedAccountValidityDays": integer,
+            "InviteMessageTemplate": {
+              "SMSMessage": "string",
+              "EmailMessage": "string",
+              "EmailSubject": "string"
+            }
+          }
+
+       ----uusseerr--ppooooll--aadddd--oonnss (structure)
+          Contains settings for activation of threat protection, including the
+          operating mode and additional authentication types. To log user
+          security information but take no action, set to AAUUDDIITT . To configure
+          automatic security responses to potentially unwanted traffic to your
+          user pool, set to EENNFFOORRCCEEDD .
+
+          For more information, see _A_d_d_i_n_g _a_d_v_a_n_c_e_d _s_e_c_u_r_i_t_y _t_o _a _u_s_e_r _p_o_o_l .
+          To activate this setting, your user pool must be on the _P_l_u_s _t_i_e_r .
+
+          AdvancedSecurityMode -> (string)
+             The operating mode of threat protection for standard
+             authentication types in your user pool, including
+             username-password and secure remote password (SRP)
+             authentication.
+
+          AdvancedSecurityAdditionalFlows -> (structure)
+             Threat protection configuration options for additional
+             authentication types in your user pool, including custom
+             authentication.
+
+             CustomAuthMode -> (string)
+                The operating mode of threat protection in custom
+                authentication with _C_u_s_t_o_m _a_u_t_h_e_n_t_i_c_a_t_i_o_n _c_h_a_l_l_e_n_g_e _L_a_m_b_d_a
+                _t_r_i_g_g_e_r_s .
+
+       Shorthand Syntax:
+
+          AdvancedSecurityMode=string,AdvancedSecurityAdditionalFlows={CustomAuthMode=string}
+
+       JSON Syntax:
+
+          {
+            "AdvancedSecurityMode": "OFF"|"AUDIT"|"ENFORCED",
+            "AdvancedSecurityAdditionalFlows": {
+              "CustomAuthMode": "AUDIT"|"ENFORCED"
+            }
+          }
+
+       ----aaccccoouunntt--rreeccoovveerryy--sseettttiinngg (structure)
+          The available verified method a user can use to recover their
+          password when they call FFoorrggoottPPaasssswwoorrdd . You can use this setting to
+          define a preferred method when a user has more than one method
+          available. With this setting, SMS doesn't qualify for a valid
+          password recovery mechanism if the user also has SMS multi-factor
+          authentication (MFA) activated. In the absence of this setting,
+          Amazon Cognito uses the legacy behavior to determine the recovery
+          method where SMS is preferred through email.
+
+          RecoveryMechanisms -> (list)
+             The list of options and priorities for user message delivery in
+             forgot-password operations. Sets or displays user pool
+             preferences for email or SMS message priority, whether users
+             should fall back to a second delivery method, and whether
+             passwords should only be reset by administrators.
+
+             (structure)
+                A recovery option for a user. The AAccccoouunnttRReeccoovveerryySSeettttiinnggTTyyppee
+                data type is an array of this object. Each RReeccoovveerryyOOppttiioonnTTyyppee
+                has a priority property that determines whether it is a
+                primary or secondary option.
+
+                For example, if vveerriiffiieedd__eemmaaiill has a priority of 11 and
+                vveerriiffiieedd__pphhoonnee__nnuummbbeerr has a priority of 22 , your user pool
+                sends account-recovery messages to a verified email address
+                but falls back to an SMS message if the user has a verified
+                phone number. The aaddmmiinn__oonnllyy option prevents self-service
+                account recovery.
+
+                Priority -> (integer)
+                   Your priority preference for using the specified attribute
+                   in account recovery. The highest priority is 11 .
+
+                 Name -> (string)
+                   The recovery method that this object sets a recovery option
+                   for.
+
+       Shorthand Syntax:
+
+          RecoveryMechanisms=[{Priority=integer,Name=string},{Priority=integer,Name=string}]
+
+       JSON Syntax:
+
+          {
+            "RecoveryMechanisms": [
+              {
+                "Priority": integer,
+                "Name": "verified_email"|"verified_phone_number"|"admin_only"
+              }
+              ...
+            ]
+          }
+
+       ----ppooooll--nnaammee (string)
+          The updated name of your user pool.
+
+       ----uusseerr--ppooooll--ttiieerr (string)
+          The user pool _f_e_a_t_u_r_e _p_l_a_n , or tier. This parameter determines the
+          eligibility of the user pool for features like managed login,
+          access-token customization, and threat protection. Defaults to
+          EESSSSEENNTTIIAALLSS .
+
+          Possible values:
+
+          +o LLIITTEE
+
+          +o EESSSSEENNTTIIAALLSS
+
+          +o PPLLUUSS
+
+       ----ccllii--iinnppuutt--jjssoonn | ----ccllii--iinnppuutt--yyaammll (string) Reads arguments from the
+       JSON string provided. The JSON string follows the format provided by
+       ----ggeenneerraattee--ccllii--sskkeelleettoonn. If other arguments are provided on the command
+       line, those values will override the JSON-provided values. It is not
+       possible to pass arbitrary binary values using a JSON-provided value as
+       the string will be taken literally. This may not be specified along
+       with ----ccllii--iinnppuutt--yyaammll.
+
+       ----ggeenneerraattee--ccllii--sskkeelleettoonn (string) Prints a JSON skeleton to standard
+       output without sending an API request. If provided with no value or the
+       value iinnppuutt, prints a sample input JSON that can be used as an argument
+       for ----ccllii--iinnppuutt--jjssoonn. Similarly, if provided yyaammll--iinnppuutt it will print a
+       sample input YAML that can be used with ----ccllii--iinnppuutt--yyaammll. If provided
+       with the value oouuttppuutt, it validates the command inputs and returns a
+       sample output JSON for that command. The generated JSON skeleton is not
+       stable between versions of the AWS CLI and there are no backwards
+       compatibility guarantees in the JSON skeleton generated.
+
+GGLLOOBBAALL OOPPTTIIOONNSS
+       ----ddeebbuugg (boolean)
+
+       Turn on debug logging.
+
+       ----eennddppooiinntt--uurrll (string)
+
+       Override command's default URL with the given URL.
+
+       ----nnoo--vveerriiffyy--ssssll (boolean)
+
+       By default, the AWS CLI uses SSL when communicating with AWS services.
+       For each SSL connection, the AWS CLI will verify SSL certificates. This
+       option overrides the default behavior of verifying SSL certificates.
+
+       ----nnoo--ppaaggiinnaattee (boolean)
+
+       Disable automatic pagination. If automatic pagination is disabled, the
+       AWS CLI will only make one call, for the first page of results.
+
+       ----oouuttppuutt (string)
+
+       The formatting style for command output.
+
+       +o json
+
+       +o text
+
+       +o table
+
+       +o yaml
+
+       +o yaml-stream
+
+       ----qquueerryy (string)
+
+       A JMESPath query to use in filtering the response data.
+
+       ----pprrooffiillee (string)
+
+       Use a specific profile from your credential file.
+
+       ----rreeggiioonn (string)
+
+       The region to use. Overrides config/env settings.
+
+       ----vveerrssiioonn (string)
+
+       Display the version of this tool.
+
+       ----ccoolloorr (string)
+
+       Turn on/off color output.
+
+       +o on
+
+       +o off
+
+       +o auto
+
+       ----nnoo--ssiiggnn--rreeqquueesstt (boolean)
+
+       Do not sign requests. Credentials will not be loaded if this argument
+       is provided.
+
+       ----ccaa--bbuunnddllee (string)
+
+       The CA certificate bundle to use when verifying SSL certificates.
+       Overrides config/env settings.
+
+       ----ccllii--rreeaadd--ttiimmeeoouutt (int)
+
+       The maximum socket read time in seconds. If the value is set to 0, the
+       socket read will be blocking and not timeout. The default value is 60
+       seconds.
+
+       ----ccllii--ccoonnnneecctt--ttiimmeeoouutt (int)
+
+       The maximum socket connect time in seconds. If the value is set to 0,
+       the socket connect will be blocking and not timeout. The default value
+       is 60 seconds.
+
+       ----ccllii--bbiinnaarryy--ffoorrmmaatt (string)
+
+       The formatting style to be used for binary blobs. The default format is
+       base64. The base64 format expects binary blobs to be provided as a
+       base64 encoded string. The raw-in-base64-out format preserves
+       compatibility with AWS CLI V1 behavior and binary values must be passed
+       literally. When providing contents from a file that map to a binary
+       blob ffiilleebb:://// will always be treated as binary and use the file
+       contents directly regardless of the ccllii--bbiinnaarryy--ffoorrmmaatt setting. When
+       using ffiillee:://// the file contents will need to properly formatted for the
+       configured ccllii--bbiinnaarryy--ffoorrmmaatt.
+
+       +o base64
+
+       +o raw-in-base64-out
+
+       ----nnoo--ccllii--ppaaggeerr (boolean)
+
+       Disable cli pager for output.
+
+       ----ccllii--aauuttoo--pprroommpptt (boolean)
+
+       Automatically prompt for CLI input parameters.
+
+       ----nnoo--ccllii--aauuttoo--pprroommpptt (boolean)
+
+       Disable automatically prompt for CLI input parameters.
+
+EEXXAAMMPPLLEESS
+       NNOOTTEE::
+          To use the following examples, you must have the AWS CLI installed
+          and configured. See the _G_e_t_t_i_n_g _s_t_a_r_t_e_d _g_u_i_d_e in the _A_W_S _C_L_I _U_s_e_r
+          _G_u_i_d_e for more information.
+
+          Unless otherwise stated, all examples have unix-like quotation
+          rules. These examples will need to be adapted to your terminal's
+          quoting rules. See _U_s_i_n_g _q_u_o_t_a_t_i_o_n _m_a_r_k_s _w_i_t_h _s_t_r_i_n_g_s in the _A_W_S _C_L_I
+          _U_s_e_r _G_u_i_d_e .
+
+       TToo uuppddaattee aa uusseerr ppooooll
+
+       The following uuppddaattee--uusseerr--ppooooll example modifies a user pool with
+       example syntax for each of the available configuration options. To
+       update a user pool, you must specify all previously-configured options
+       or they will reset to a default value.
+
+          aws cognito-idp update-user-pool --user-pool-id us-west-2_EXAMPLE \
+              --policies PasswordPolicy=\{MinimumLength=6,RequireUppercase=true,RequireLowercase=true,RequireNumbers=true,RequireSymbols=true,TemporaryPasswordValidityDays=7\} \
+              --deletion-protection ACTIVE \
+              --lambda-config PreSignUp="arn:aws:lambda:us-west-2:123456789012:function:cognito-test-presignup-function",PreTokenGeneration="arn:aws:lambda:us-west-2:123456789012:function:cognito-test-pretoken-function" \
+              --auto-verified-attributes "phone_number" "email" \
+              --verification-message-template \{\"SmsMessage\":\""Your code is {####}"\",\"EmailMessage\":\""Your code is {####}"\",\"EmailSubject\":\""Your verification code"\",\"EmailMessageByLink\":\""Click {##here##} to verify your email address."\",\"EmailSubjectByLink\":\""Your verification link"\",\"DefaultEmailOption\":\"CONFIRM_WITH_LINK\"\} \
+              --sms-authentication-message "Your code is {####}" \
+              --user-attribute-update-settings AttributesRequireVerificationBeforeUpdate="email","phone_number" \
+              --mfa-configuration "OPTIONAL" \
+              --device-configuration ChallengeRequiredOnNewDevice=true,DeviceOnlyRememberedOnUserPrompt=true \
+              --email-configuration SourceArn="arn:aws:ses:us-west-2:123456789012:identity/admin@example.com",ReplyToEmailAddress="amdin+noreply@example.com",EmailSendingAccount=DEVELOPER,From="admin@amazon.com",ConfigurationSet="test-configuration-set" \
+              --sms-configuration SnsCallerArn="arn:aws:iam::123456789012:role/service-role/SNS-SMS-Role",ExternalId="12345",SnsRegion="us-west-2" \
+              --admin-create-user-config AllowAdminCreateUserOnly=false,InviteMessageTemplate=\{SMSMessage=\""Welcome {username}. Your confirmation code is {####}"\",EmailMessage=\""Welcome {username}. Your confirmation code is {####}"\",EmailSubject=\""Welcome to MyMobileGame"\"\} \
+              --user-pool-tags "Function"="MyMobileGame","Developers"="Berlin" \
+              --admin-create-user-config AllowAdminCreateUserOnly=false,InviteMessageTemplate=\{SMSMessage=\""Welcome {username}. Your confirmation code is {####}"\",EmailMessage=\""Welcome {username}. Your confirmation code is {####}"\",EmailSubject=\""Welcome to MyMobileGame"\"\} \
+              --user-pool-add-ons AdvancedSecurityMode="AUDIT" \
+              --account-recovery-setting RecoveryMechanisms=\[\{Priority=1,Name="verified_email"\},\{Priority=2,Name="verified_phone_number"\}\]
+
+       This command produces no output.
+
+       For more information, see _U_p_d_a_t_i_n_g _u_s_e_r _p_o_o_l _c_o_n_f_i_g_u_r_a_t_i_o_n in the
+       _A_m_a_z_o_n _C_o_g_n_i_t_o _D_e_v_e_l_o_p_e_r _G_u_i_d_e.
+
+OOUUTTPPUUTT
+       None
+
+                                                            UPDATE-USER-POOL()

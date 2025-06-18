@@ -1,0 +1,44 @@
+name: workflow.yml
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  flow:
+    name: 'Running the unit test and work flow'
+    runs-on: ubuntu-latest
+
+    defualt:
+      runs-on: services/auth-services
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up
+      uses: actions/setup-go@latest
+
+    - name: Downloading the dependency
+      uses: go mod download
+
+    - name: 🧪 Run unit tests recursively
+      run: go test -v ./...
+
+    - name: Building the docker container
+      run: docker build -t auth-service .
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PASSWORD}}
+
+    - name: Build the docker image
+      run: docker build -t ${{secrets.DOCKER_HUB_USERNAME}}/auth-service-cms:latest .
+
+    - name: Pushing the image to Hub
+      run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/auth-service-cms:latest
+
+

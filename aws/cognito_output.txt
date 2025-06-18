@@ -1,0 +1,2 @@
+user_pool_client_id = "6nc06fsj3c4mdl71a18gass9p5"
+user_pool_id = "us-east-1_jeV07U5ru"

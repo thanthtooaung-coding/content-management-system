@@ -8,7 +8,6 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/content-management-system/auth-service/internal/handler/rest"
 	"github.com/content-management-system/auth-service/pkg/db"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
@@ -19,22 +18,20 @@ import (
 var Module = fx.Provide(NewFiberApp)
 
 type FiberApp struct {
-	App     *fiber.App
-	logger  *logrus.Logger
-	db      *db.DB
-	handler *rest.Handler
+	App    *fiber.App
+	logger *logrus.Logger
+	db     *db.DB
 }
 
-func NewFiberApp(lifeCycle fx.Lifecycle, log *logrus.Logger, db *db.DB, restHandler *rest.Handler) *FiberApp {
+func NewFiberApp(lifeCycle fx.Lifecycle, log *logrus.Logger, db *db.DB) *FiberApp {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
 	})
 
 	fiberApp := &FiberApp{
-		App:     app,
-		logger:  log,
-		db:      db,
-		handler: restHandler,
+		App:    app,
+		logger: log,
+		db:     db,
 	}
 
 	port := os.Getenv("PORT")
@@ -43,7 +40,6 @@ func NewFiberApp(lifeCycle fx.Lifecycle, log *logrus.Logger, db *db.DB, restHand
 	}
 
 	fiberApp.setupRoutes()
-	fiberApp.testRoutes(restHandler)
 
 	lifeCycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
@@ -85,14 +81,6 @@ func (app *FiberApp) setupRoutes() {
 		})
 	})
 
-	api := app.App.Group("/api/v1")
-	api.Post("/login", app.handler.LoginHandler)
-	api.Post("/register", app.handler.RegisterHandler)
-	api.Get("/users", app.handler.GetUsersHandler)
-	api.Get("/users/:id", app.handler.GetUserHandler)
-}
-func (app *FiberApp) testRoutes(handler *rest.Handler) {
-	app.App.Get("/test", handler.LoginHandler)
 }
 
 func (app *FiberApp) setupGraphQL(resolver *graph2.Resolver) {
