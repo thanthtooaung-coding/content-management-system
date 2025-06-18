@@ -3,11 +3,11 @@ on:
   push:
     branches: [main]
     paths:
-      - 'services/auth-services/**'
+      - 'services/auth-service/**'
   pull_request:
     branches: [main]
     paths:
-      - 'services/auth-services/**'
+      - 'services/auth-service/**'
   workflow_dispatch:
 
 jobs:
