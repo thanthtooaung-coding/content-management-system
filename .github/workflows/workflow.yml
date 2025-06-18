@@ -30,9 +30,12 @@ jobs:
 
     - name: 🧪 Run unit tests recursively
       run: go test -v ./...
+      working-directory: 'services/auth-service'
 
     - name: Building the docker container
       run: docker build -t auth-service .
+      working-directory: 'services/auth-service'
+
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
