@@ -24,7 +24,7 @@ jobs:
         go-version: '1.24.3'
 
     - name: Downloading the dependency
-      uses: go mod download
+      run: go mod download
 
     - name: 🧪 Run unit tests recursively
       run: go test -v ./...
