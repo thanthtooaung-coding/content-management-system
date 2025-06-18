@@ -19,6 +19,8 @@ jobs:
 
     - name: Set up
       uses: actions/setup-go@latest
+      with:
+        go-version: '1.24.3'
 
     - name: Downloading the dependency
       uses: go mod download
