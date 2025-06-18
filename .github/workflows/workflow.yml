@@ -25,7 +25,8 @@ jobs:
         go-version: '1.24.3'
 
     - name: Downloading the dependency
-      run: go mod tidy
+      run: go mod download
+      working-directory: 'services/auth-service'
 
     - name: 🧪 Run unit tests recursively
       run: go test -v ./...
