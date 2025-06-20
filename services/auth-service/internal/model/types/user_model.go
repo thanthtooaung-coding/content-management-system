@@ -1,6 +1,7 @@
 package types
 
 import (
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -14,7 +15,7 @@ type Role struct {
 }
 
 type User struct {
-	ID               uint64    `gorm:"primaryKey;autoIncrement" json:"id"`
+	ID               uuid.UUID `gorm:"primaryKey;autoIncrement" json:"id"`
 	Username         string    `gorm:"type:varchar(255);not null;unique" json:"username"`
 	Password         string    `gorm:"type:varchar(255);not null" json:"-"`
 	Email            string    `gorm:"type:varchar(255);not null;unique" json:"email"`

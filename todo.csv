@@ -1,0 +1,19 @@
+Summary,Issue Type,Priority,Status,Assignee,Reporter,Labels,Sprint,Story Points,Description
+Implement user login,Story,High,To Do,SwanHtetAungPhyo,ProductOwner,auth,SPRINT-1,5,Create login page and integrate with backend API
+Fix broken login redirect,Bug,Medium,In Progress,SwanHtetAungPhyo,QA,test,SPRINT-1,2,Redirect after login is broken on mobile view
+Create reusable input component,Task,Low,To Do,FrontendDev,TechLead,ui,SPRINT-2,3,Reusable input with validation for future forms
+Set up CI/CD pipeline,Story,High,In Review,DevOps,ProductOwner,devops,SPRINT-1,8,Integrate GitHub Actions to automate test & deploy
+Add password reset feature,Story,Medium,To Do,SwanHtetAungPhyo,ProductOwner,auth,SPRINT-2,5,Allow users to reset password via email
+Write unit tests for auth service,Task,Medium,To Do,BackendDev,TechLead,tests,SPRINT-2,3,Cover login and registration flows
+
+
+
+
+
+
+
+
+
+
+
+
