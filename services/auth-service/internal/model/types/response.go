@@ -10,7 +10,7 @@ type UserResponse struct {
 
 func (u *User) ToResponse() *UserResponse {
 	return &UserResponse{
-		Id:       u.Id,
+		Id:       u.ID,
 		Username: u.Username,
 		Email:    u.Email,
 	}

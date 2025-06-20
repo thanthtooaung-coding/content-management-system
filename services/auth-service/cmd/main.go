@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/content-management-system/auth-service/internal/service"
 	"log"
 
 	"github.com/content-management-system/auth-service/internal/handler/rest/provider"
@@ -14,7 +15,12 @@ import (
 	"go.uber.org/fx"
 )
 
-func NewApp(db *db.DB, logger *logrus.Logger, fiberApp *fiber_app.FiberApp) *fx_app.App {
+func NewApp(
+	db *db.DB,
+	logger *logrus.Logger,
+
+	fiberApp *fiber_app.FiberApp,
+) *fx_app.App {
 	return &fx_app.App{
 		DB:     db,
 		Logger: logger,
@@ -31,6 +37,7 @@ func main() {
 		fx.Provide(logger.NewLogger),
 		db.Module,
 		provider.Module,
+		service.Module,
 		fiber_app.Module,
 		fx.Provide(NewApp),
 		fx.Invoke(func(app *fx_app.App) {
